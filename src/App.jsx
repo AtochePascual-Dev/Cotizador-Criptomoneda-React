@@ -9,6 +9,7 @@ const Contianer = styled.div`
   padding-top: 5rem;
   display: grid;
   justify-items: center;
+  align-items: center;
   gap: 4em;
   color: white;
   

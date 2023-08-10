@@ -18,7 +18,7 @@ const Selected = styled.select`
   outline: none;
 `;
 
-const Select = ({ label, id, data }) => {
+const Select = ({ label, id, data, fn }) => {
 
   return (
     <>
@@ -29,6 +29,7 @@ const Select = ({ label, id, data }) => {
 
       <Selected
         id={id}
+        onChange={(e) => fn(e.target.value)}
       >
         <option value="">-- Seleccione --</option>
         {
