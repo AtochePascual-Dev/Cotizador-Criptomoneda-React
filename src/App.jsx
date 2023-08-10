@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import ImagenCriptoPng from './img/imagen-criptos.png';
 import { useState } from "react";
 import Resultado from "./components/Resultado";
+import Spinner from "./components/Spinner";
 
 const Contianer = styled.div`
   width: 90%;
@@ -11,7 +12,6 @@ const Contianer = styled.div`
   padding-top: 5rem;
   display: grid;
   justify-items: center;
-  align-items: center;
   gap: 4em;
   color: white;
   
@@ -47,6 +47,7 @@ const Header = styled.h1`
 
 function App() {
   const [resultado, setResulado] = useState({});
+  const [spiner, setSpiner] = useState(false);
 
   return (
     <Contianer>
@@ -60,7 +61,10 @@ function App() {
         <Header>Cotiza tu Criptomoneda</Header>
         <Formulario
           setResulado={setResulado}
+          setSpiner={setSpiner}
         />
+
+        {spiner && <Spinner />}
 
         {
           resultado.PRICE &&

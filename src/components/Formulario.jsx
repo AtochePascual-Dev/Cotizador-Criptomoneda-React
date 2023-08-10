@@ -23,7 +23,7 @@ const Buttom = styled.input`
   }
 `;
 
-const Formulario = ({ setResulado }) => {
+const Formulario = ({ setResulado, setSpiner }) => {
   const [criptos, setCriptos] = useState([]);
   const [moneda, setMoneda] = useState("");
   const [criptoMoneda, setCriptoMoneda] = useState("");
@@ -48,6 +48,7 @@ const Formulario = ({ setResulado }) => {
     const respuesta = await fetch(URL);
     const resultado = await respuesta.json();
     const { PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, IMAGEURL, LASTUPDATE } = resultado.DISPLAY[criptoMoneda][moneda];
+    setSpiner(false);
     setResulado({ PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, IMAGEURL, LASTUPDATE })
   };
 
@@ -60,6 +61,8 @@ const Formulario = ({ setResulado }) => {
     };
 
     setError(false);
+    setSpiner(true);
+    setResulado({});
     cotizarCriptoMonedasAPI(moneda, criptoMoneda);
   };
 

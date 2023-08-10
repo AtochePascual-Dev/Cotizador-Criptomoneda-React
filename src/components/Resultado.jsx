@@ -1,11 +1,13 @@
 import styled from "@emotion/styled"
 
 const ContenedorResultado = styled.div`
+  min-height: 20rem;
   margin-top: 5rem;
   display: grid;
+  justify-items: center;
   gap: 2rem;
   
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     grid-template-columns: 10rem 2fr;
   }
 `;
