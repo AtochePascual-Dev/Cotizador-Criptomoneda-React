@@ -42,6 +42,13 @@ const Formulario = () => {
   }, []);
 
 
+  const cotizarCriptoMonedasAPI = async (moneda, criptomoneda) => {
+    const URL = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptomoneda}&tsyms=${moneda}`;
+
+    const respuesta = await fetch(URL);
+    const resultado = await respuesta.json();
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -51,6 +58,7 @@ const Formulario = () => {
     };
 
     setError(false);
+    cotizarCriptoMonedasAPI(moneda, criptoMoneda);
   };
 
   return (
