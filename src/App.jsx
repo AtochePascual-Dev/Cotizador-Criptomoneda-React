@@ -1,6 +1,8 @@
 import Formulario from "./components/Formulario";
 import styled from "@emotion/styled";
 import ImagenCriptoPng from './img/imagen-criptos.png';
+import { useState } from "react";
+import Resultado from "./components/Resultado";
 
 const Contianer = styled.div`
   width: 90%;
@@ -44,6 +46,7 @@ const Header = styled.h1`
 `;
 
 function App() {
+  const [resultado, setResulado] = useState({});
 
   return (
     <Contianer>
@@ -55,7 +58,16 @@ function App() {
 
       <div>
         <Header>Cotiza tu Criptomoneda</Header>
-        <Formulario />
+        <Formulario
+          setResulado={setResulado}
+        />
+
+        {
+          resultado.PRICE &&
+          <Resultado
+            resultado={resultado}
+          />
+        }
       </div>
 
     </Contianer>

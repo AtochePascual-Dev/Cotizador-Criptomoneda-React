@@ -23,7 +23,7 @@ const Buttom = styled.input`
   }
 `;
 
-const Formulario = () => {
+const Formulario = ({ setResulado }) => {
   const [criptos, setCriptos] = useState([]);
   const [moneda, setMoneda] = useState("");
   const [criptoMoneda, setCriptoMoneda] = useState("");
@@ -47,6 +47,8 @@ const Formulario = () => {
 
     const respuesta = await fetch(URL);
     const resultado = await respuesta.json();
+    const { PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, IMAGEURL, LASTUPDATE } = resultado.DISPLAY[criptoMoneda][moneda];
+    setResulado({ PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, IMAGEURL, LASTUPDATE })
   };
 
   const handleSubmit = (event) => {
