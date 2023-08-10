@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import styled from "@emotion/styled"
-import Select from "./Select"
+import useSelect from "../hooks/useSelect";
 import Error from "./Error";
 import { monedas } from "../data/monedas"
 
@@ -25,8 +25,8 @@ const Buttom = styled.input`
 
 const Formulario = ({ setResulado, setSpiner }) => {
   const [criptos, setCriptos] = useState([]);
-  const [moneda, setMoneda] = useState("");
-  const [criptoMoneda, setCriptoMoneda] = useState("");
+  const [moneda, SelectMoneda] = useSelect("Elige tu Moneda", monedas);
+  const [criptomoneda, SelectCriptomoneda] = useSelect("Elige tu Criptomoneda", criptos);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const Formulario = ({ setResulado, setSpiner }) => {
 
     const respuesta = await fetch(URL);
     const resultado = await respuesta.json();
-    const { PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, IMAGEURL, LASTUPDATE } = resultado.DISPLAY[criptoMoneda][moneda];
+    const { PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, IMAGEURL, LASTUPDATE } = resultado.DISPLAY[criptomoneda][moneda];
     setSpiner(false);
     setResulado({ PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, IMAGEURL, LASTUPDATE })
   };
@@ -55,7 +55,7 @@ const Formulario = ({ setResulado, setSpiner }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if ([moneda, criptoMoneda].includes('')) {
+    if ([moneda, criptomoneda].includes('')) {
       setError(true);
       return
     };
@@ -63,7 +63,7 @@ const Formulario = ({ setResulado, setSpiner }) => {
     setError(false);
     setSpiner(true);
     setResulado({});
-    cotizarCriptoMonedasAPI(moneda, criptoMoneda);
+    cotizarCriptoMonedasAPI(moneda, criptomoneda);
   };
 
   return (
@@ -73,19 +73,9 @@ const Formulario = ({ setResulado, setSpiner }) => {
 
       {error && <Error>Seleccione una Moneda y Criptomoneda</Error>}
 
-      <Select
-        label="Elige tu Moneda"
-        id="moneda"
-        data={monedas}
-        fn={setMoneda}
-      />
+      <SelectMoneda />
 
-      <Select
-        label="Elige tu Criptomoneda"
-        id="criptomoneda"
-        data={criptos}
-        fn={setCriptoMoneda}
-      />
+      <SelectCriptomoneda />
 
       <Buttom
         type="submit"
